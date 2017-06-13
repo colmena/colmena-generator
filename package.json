@@ -1,0 +1,24 @@
+{
+  "name": "@colmena/colmena-generator",
+  "version": "1.0.0",
+  "description": "Proof of Concept Code generator for Colmena",
+  "main": "index.js",
+  "contributors": [
+    "Bram Borggreve <borggreve@gmail.com> (https://github.com/beeman)",
+    "Brannon N. Darby II <bdarby86@gmail.com> (https://github.com/brannon-darby)"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colmena/colmena-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colmena/colmena-generator/issues"
+  },
+  "homepage": "https://github.com/colmena/colmena-generator#readme"
+}
