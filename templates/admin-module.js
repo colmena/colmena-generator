@@ -1,78 +1,81 @@
 const chalk = require('chalk')
+const path = require('path')
 const log = require('../lib/logger')
 
+const {input, checkbox} = require('../lib/inputs')
+
+const templatePath = 'templates/admin-module'
 const description = 'Generate an Angular module for @colmena/admin'
 
-const prompts = [{
-  type: 'input',
-  name: 'moduleName',
-  message: 'Module Name:',
-  validate: (value) => {
-    if (/.+/.test(value)) {
-      return true
-    }
-    return 'Module Name is required'
-  },
-}, {
-  type: 'input',
-  name: 'modelName',
-  message: 'Primary Model:',
-  validate: (value) => {
-    if (/.+/.test(value)) {
-      return true
-    }
-    return 'Primary Model is required'
-  },
-}, {
-  type: 'checkbox',
-  name: 'moduleItems',
-  message: 'Select the items you want to include:',
-  choices: [
+const prompts = [
+  input('moduleName', 'Module Name:', true),
+  input('modelName', 'Primary Name:', true),
+  checkbox('moduleItems', 'Select the items you want to include:', [
     {name: 'Service', value: 'service', checked: true},
     {name: 'Resolvers', value: 'resolvers', checked: true},
     {name: 'Routes', value: 'routes', checked: true},
     {name: 'Containers', value: 'containers', checked: true},
     {name: 'Components', value: 'components', checked: true},
-  ],
-}]
+  ]),
+]
 
 const actions = (data) => {
-  const actions = [
-    {
-      type: 'add',
-      path: '{{ lowerCase moduleName }}/{{ dashCase moduleName }}.module.ts',
-      templateFile: 'templates/admin-module/module.txt',
+  const targetPath = '{{ lowerCase moduleName }}'
+  const moduleName = '{{ dashCase moduleName }}'
+
+  const actions = []
+
+  // Push and add action to the actions array, prepend target and template path
+  const addFile = (templateFile, ...targetFiles) => actions.push({
+    type: 'add',
+    templateFile: path.join(templatePath, templateFile),
+    path: path.join(targetPath, ...targetFiles),
+  })
+
+  // These are the handlers for each of the moduleItems we can generate
+  const handlers = {
+    service: () => {
+      log.white.b('Adding Service...')
+      addFile(`service.txt`, `${moduleName}.service.ts`)
     },
-  ]
+    resolvers: () => {
+      log.white.b('Adding Resolvers...')
+      addFile(`resolvers.txt`, `${moduleName}.resolvers.ts`)
+    },
+    module: () => {
+      log.white.b(`Generating Angular Module`)
+      addFile('module.txt', `${moduleName}.module.ts`)
+    },
+    routes: () => {
+      log.white.b('Adding Routes...')
+      addFile(`routes.txt`, `${moduleName}.routes.ts`)
+    },
+    components: () => {
+      log.white.b('Adding Components...')
+      const components = ['form', 'header', 'tabs']
 
-  log.green.b(`Generating Angular Module`)
+      components.forEach(component => {
+        addFile(`components/${component}.txt`, `components/${moduleName}.${component}.ts`)
+      })
+    },
+    containers: () => {
+      log.white.b('Adding Components...')
+      const containers = ['detail', 'list']
 
-  if (data.moduleItems.indexOf('service') > -1) {
-    log.white('Adding Service...')
-    actions.push({
-      type: 'add',
-      path: '{{ lowerCase moduleName }}/{{ dashCase moduleName }}.service.ts',
-      templateFile: 'templates/admin-module/service.txt',
-    })
+      containers.forEach(component => {
+        addFile(`containers/${component}.txt`, `containers/${moduleName}.${component}.ts`)
+      })
+    }
   }
 
-  if (data.moduleItems.indexOf('resolvers') > -1) {
-    log.white('Adding Resolvers...')
-    actions.push({
-      type: 'add',
-      path: '{{ lowerCase moduleName }}/{{ dashCase moduleName }}.resolvers.ts',
-      templateFile: 'templates/admin-module/resolvers.txt',
-    })
-  }
+  // Always create the module item first
+  data.moduleItems.unshift('module')
 
-  if (data.moduleItems.indexOf('routes') > -1) {
-    log.white('Adding Routes...')
-    actions.push({
-      type: 'add',
-      path: '{{ lowerCase moduleName }}/{{ dashCase moduleName }}.routes.ts',
-      templateFile: 'templates/admin-module/routes.txt',
-    })
-  }
+  // Loop over all the selected moduleItems and execute their handler.
+  data.moduleItems.forEach(moduleItem => handlers[moduleItem]
+    ? handlers[moduleItem]()
+    : log.red.b(`Handler for ${moduleItem} not defined.`)
+  )
 
   return actions
 }
