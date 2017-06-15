@@ -1,0 +1,92 @@
+import { Injectable } from '@angular/core'
+import { {{ properCase modelName }}, {{ properCase modelName }}Api } from '@colmena/admin-lb-sdk'
+export { {{ properCase modelName }} } from '@colmena/admin-lb-sdk'
+import { UiDataGridService, FormService } from '@colmena/admin-ui'
+import { Observable } from 'rxjs/Observable'
+import { Subscription } from 'rxjs/Subscription'
+
+@Injectable()
+export class {{ properCase modelName }}sService extends UiDataGridService {
+
+  public icon = 'icon-globe'
+  public title = '{{ properCase modelName }}s'
+  public selected{{ properCase modelName }}: {{ properCase modelName }}
+
+  public tableColumns = [
+    { field: 'id', label: 'ID', action: 'view' },
+    { field: 'name', label: 'Name', action: 'view' },
+  ]
+
+  constructor(
+    private {{ camelCase modelName }}Api: {{ properCase modelName }}Api,
+    private formService: FormService,
+  ) {
+    super()
+    this.columns = this.tableColumns
+  }
+
+  setSelected{{ properCase modelName }}({{ camelCase modelName }}: {{ properCase modelName }}) {
+    this.selected{{ properCase modelName }} = {{ camelCase modelName }}
+  }
+
+  getFormFields() {
+    return [
+      this.formService.input('id', {
+        label: 'ID',
+        placeholder: 'ID',
+      }),
+      this.formService.input('name', {
+        label: 'Name',
+        placeholder: 'Name',
+      }),
+      this.formService.email('email', {
+        label: 'Email',
+        placeholder: 'Email',
+      }),
+      this.formService.input('description', {
+        label: 'Description',
+        placeholder: 'Description',
+      }),
+    ]
+  }
+
+  getFormConfig() {
+    return {
+      icon: this.icon,
+      fields: this.getFormFields(),
+      showCancel: true,
+      hasHeader: false,
+    }
+  }
+
+  getItems(): Observable<{{ properCase modelName }}[]> {
+    return this.{{ camelCase modelName }}Api.find(this.getFilters())
+  }
+
+  getItem(id): Observable<{{ properCase modelName }}> {
+    return this.{{ camelCase modelName }}Api.findById(id)
+  }
+
+  getItemCount(): Observable<any> {
+    return this.{{ camelCase modelName }}Api.count(this.getWhereFilters())
+  }
+
+  upsertItem(item, successCb, errorCb): Subscription {
+    if (item.id) {
+      return this.upsert{{ properCase modelName }}(item, successCb, errorCb)
+    }
+    return this.create{{ properCase modelName }}(item, successCb, errorCb)
+  }
+
+  upsert{{ properCase modelName }}(item, successCb, errorCb): Subscription {
+    return this.{{ camelCase modelName }}Api.upsert(item).subscribe(successCb, errorCb)
+  }
+
+  create{{ properCase modelName }}(item, successCb, errorCb): Subscription {
+    return this.{{ camelCase modelName }}Api.create(item).subscribe(successCb, errorCb)
+  }
+
+  deleteItem(item, successCb, errorCb): Subscription {
+    return this.{{ camelCase modelName }}Api.deleteById(item.id).subscribe(successCb, errorCb)
+  }
+}

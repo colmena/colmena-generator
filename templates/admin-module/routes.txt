@@ -1,0 +1,57 @@
+import { Routes } from '@angular/router'
+
+import { {{ properCase modelName }}ListComponent } from './containers/{{ dashCase modelName }}-list.component'
+import { {{ properCase modelName }}DetailComponent } from './containers/{{ dashCase modelName }}-detail.component'
+import { {{ properCase modelName }}FormComponent } from './components/{{ dashCase modelName }}-form.component'
+
+import { {{ properCase modelName }}Resolver } from './{{ dashCase modelName }}s.resolvers'
+
+export const {{ properCase modelName }}sRoutes: Routes = [
+  {
+    path: '{{ camelCase modelName }}s',
+    data: { title: '{{ properCase modelName }}s' },
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full',
+      },
+      {
+        path: 'list',
+        component: {{ properCase modelName }}ListComponent,
+        data: { title: 'List' },
+      },
+      {
+        path: 'create',
+        component: {{ properCase modelName }}DetailComponent,
+        data: { title: 'Create' },
+        children: [
+          {
+            path: '',
+            component: {{ properCase modelName }}FormComponent,
+          },
+        ],
+      },
+      {
+        path: ':id',
+        component: {{ properCase modelName }}DetailComponent,
+        resolve: {
+          {{ camelCase modelName }}: {{ properCase modelName }}Resolver,
+        },
+        data: { title: '{{ camelCase modelName }}' },
+        children: [
+          {
+            path: '',
+            redirectTo: 'edit',
+            pathMatch: 'full',
+          },
+          {
+            path: 'edit',
+            component: {{ properCase modelName }}FormComponent,
+            data: { title: 'Edit' },
+          },
+        ],
+      },
+    ],
+  },
+]

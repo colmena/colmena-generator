@@ -1,0 +1,15 @@
+import { Injectable } from '@angular/core'
+import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router'
+import { Observable } from 'rxjs/Observable'
+
+import { {{ properCase modelName }}, {{ properCase modelName }}sService } from './{{ dashCase modelName }}s.service'
+
+@Injectable()
+export class {{ properCase modelName }}sResolver implements Resolve<{{ properCase modelName }}> {
+
+  constructor(private service: {{ properCase modelName }}sService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{{ properCase modelName }}> {
+    return this.service.getItem(route.params.id)
+  }
+}
