@@ -1,0 +1,21 @@
+{
+  "name": "{{ moduleScope }}/module-api-{{ moduleFileName }}",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {},
+  "colmena": {
+    "module": {
+      "modelSources": [
+        "common/models"
+      ],
+      "models": {
+        "{{ moduleName }}": {
+          "dataSource": "db"
+        }
+      },
+      "sampleData": [
+        "sample-data/sample-data.json"
+      ]
+    }
+  }
+}
