@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
-import { Test, TestApi } from '@colmena/admin-lb-sdk'
-export { Test } from '@colmena/admin-lb-sdk'
+import { {{ moduleName }}, {{ moduleName }}Api } from '@colmena/admin-lb-sdk'
+export { {{ moduleName }} } from '@colmena/admin-lb-sdk'
 import { UiDataGridService, FormService } from '@colmena/admin-ui'
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 
 @Injectable()
-export class TestsService extends UiDataGridService {
+export class {{ moduleNamePlural }}Service extends UiDataGridService {
 
   public icon = 'icon-globe'
-  public title = 'Tests'
-  public selectedTest: Test
+  public title = '{{ moduleNamePlural }}'
+  public selected{{ moduleName }}: {{ moduleName }}
 
   public tableColumns = [
     { field: 'id', label: 'ID', action: 'view' },
@@ -18,15 +18,15 @@ export class TestsService extends UiDataGridService {
   ]
 
   constructor(
-    private testApi: TestApi,
+    private {{ moduleNameCamel }}Api: {{ moduleName }}Api,
     private formService: FormService,
   ) {
     super()
     this.columns = this.tableColumns
   }
 
-  setSelectedTest(test: Test) {
-    this.selectedTest = test
+  setSelected{{ moduleName }}({{ moduleNameCamel }}: {{ moduleName }}) {
+    this.selected{{ moduleName }} = {{ moduleNameCamel }}
   }
 
   getFormFields() {
@@ -59,34 +59,34 @@ export class TestsService extends UiDataGridService {
     }
   }
 
-  getItems(): Observable<Test[]> {
-    return this.testApi.find(this.getFilters())
+  getItems(): Observable<{{ moduleName }}[]> {
+    return this.{{ moduleNameCamel }}Api.find(this.getFilters())
   }
 
-  getItem(id): Observable<Test> {
-    return this.testApi.findById(id)
+  getItem(id): Observable<{{ moduleName }}> {
+    return this.{{ moduleNameCamel }}Api.findById(id)
   }
 
   getItemCount(): Observable<any> {
-    return this.testApi.count(this.getWhereFilters())
+    return this.{{ moduleNameCamel }}Api.count(this.getWhereFilters())
   }
 
   upsertItem(item, successCb, errorCb): Subscription {
     if (item.id) {
-      return this.upsertTest(item, successCb, errorCb)
+      return this.upsert{{ moduleName }}(item, successCb, errorCb)
     }
-    return this.createTest(item, successCb, errorCb)
+    return this.create{{ moduleName }}(item, successCb, errorCb)
   }
 
-  upsertTest(item, successCb, errorCb): Subscription {
-    return this.testApi.upsert(item).subscribe(successCb, errorCb)
+  upsert{{ moduleName }}(item, successCb, errorCb): Subscription {
+    return this.{{ moduleNameCamel }}Api.upsert(item).subscribe(successCb, errorCb)
   }
 
-  createTest(item, successCb, errorCb): Subscription {
-    return this.testApi.create(item).subscribe(successCb, errorCb)
+  create{{ moduleName }}(item, successCb, errorCb): Subscription {
+    return this.{{ moduleNameCamel }}Api.create(item).subscribe(successCb, errorCb)
   }
 
   deleteItem(item, successCb, errorCb): Subscription {
-    return this.testApi.deleteById(item.id).subscribe(successCb, errorCb)
+    return this.{{ moduleNameCamel }}Api.deleteById(item.id).subscribe(successCb, errorCb)
   }
 }

@@ -2,20 +2,20 @@ import { Component, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { UiService } from '@colmena/admin-ui'
 
-import { TestsService } from '../tests.service'
+import { {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}s.service'
 
 @Component({
-  selector: 'app-test-list',
+  selector: 'app-{{ moduleFileName }}-list',
   template: `
     <ui-data-grid #grid (action)="action($event)" [service]="service"></ui-data-grid>
   `,
 })
-export class TestListComponent {
+export class {{ moduleName }}ListComponent {
 
   @ViewChild('grid') private grid
 
   constructor(
-    public service: TestsService,
+    public service: {{ moduleNamePlural }}Service,
     private uiService: UiService,
     private router: Router,
     private route: ActivatedRoute,

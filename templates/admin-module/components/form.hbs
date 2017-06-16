@@ -2,27 +2,27 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { UiService } from '@colmena/admin-ui'
 
-import { Test, TestsService } from '../test.service'
+import { {{ moduleName }}, {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}.service'
 
 @Component({
-  selector: 'app-test-form',
+  selector: 'app-{{ moduleFileName }}-form',
   template: `
     <ui-form *ngIf="item" [config]="formConfig" [item]="item" (action)="handleAction($event)"></ui-form>
   `,
 })
-export class TestFormComponent implements OnInit {
+export class {{ moduleName }}FormComponent implements OnInit {
 
   public formConfig: any = {}
   public item: any
 
   constructor(
-    private service: TestsService,
+    private service: {{ moduleNamePlural }}Service,
     private uiService: UiService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.item = this.service.selectedTest || new Test()
+    this.item = this.service.selected{{ moduleName }} || new {{ moduleName }}()
     this.formConfig = this.service.getFormConfig()
   }
 
@@ -32,12 +32,12 @@ export class TestFormComponent implements OnInit {
         return this.service.upsertItem(
           event.item,
           () => {
-            this.uiService.toastSuccess('Save Test Success', `<u>${event.item.name}</u> has been saved successfully`)
+            this.uiService.toastSuccess('Save {{ moduleName }} Success', `<u>${event.item.name}</u> has been saved successfully`)
           },
-          err => this.uiService.toastError('Save Test Fail', err.message)
-        ).add(() => this.router.navigate(['/system/test']))
+          err => this.uiService.toastError('Save {{ moduleName }} Fail', err.message)
+        ).add(() => this.router.navigate(['/system/{{ moduleFileName }}']))
       case 'cancel':
-        return this.router.navigate(['/system/test'])
+        return this.router.navigate(['/system/{{ moduleFileName }}'])
       default:
         return console.log('Unknown event action:', event)
     }

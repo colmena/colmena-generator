@@ -1,12 +1,15 @@
 'use strict'
 
+// const _ = require('lodash')
+// _.mixin(require('lodash-inflection'))
+
 const path = require('path')
 
 const { branding } = require('./lib/functions')
 
 const generators = {
-  'admin-module': require('./templates/admin-module'),
-  'api-module': require('./templates/api-module'),
+  'admin-module': './templates/admin-module',
+  'api-module': './templates/api-module',
 }
 
 module.exports = function(plop) {
@@ -20,11 +23,5 @@ module.exports = function(plop) {
   plop.addPrompt('directory', require('inquirer-directory'))
 
   // Load the generators
-  Object.keys(generators).forEach(generator => {
-    plop.setGenerator(generator, generators[generator])
-  })
-
-
-  console.log(plop.getDestBasePath())
-
+  Object.keys(generators).forEach(generator => plop.load(generators[generator]))
 }

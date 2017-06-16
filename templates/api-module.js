@@ -1,14 +1,18 @@
 const chalk = require('chalk')
 const log = require('../lib/logger')
 
-const description = 'Generate a LoopBack module for @colmena/api'
+module.exports = function(plop) {
 
-const prompts = []
+  const name = 'api-module'
+  const description = 'Generate a LoopBack module for @colmena/api'
 
-const actions = (data) => {
-  const actions = []
+  const prompts = []
 
-  return actions
+  const actions = (data) => {
+    const actions = []
+
+    return actions
+  }
+
+  plop.setGenerator(name, {description, prompts, actions})
 }
-
-module.exports = {description, prompts, actions}

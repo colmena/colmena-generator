@@ -30,6 +30,8 @@
     "eslint": "^4.0.0",
     "eslint-plugin-prettier": "^2.1.2",
     "inquirer-directory": "^2.1.0",
+    "lodash": "^4.17.4",
+    "lodash-inflection": "^1.5.0",
     "prettier": "^1.4.4"
   },
   "eslintConfig": {

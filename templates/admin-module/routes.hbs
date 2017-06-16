@@ -1,0 +1,57 @@
+import { Routes } from '@angular/router'
+
+import { {{ moduleName }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
+import { {{ moduleName }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
+import { {{ moduleName }}FormComponent } from './components/{{ moduleFileName }}.form.component'
+
+import { {{ moduleNamePlural }}Resolver } from './{{ moduleFileName }}.resolvers'
+
+export const {{ moduleNamePlural }}Routes: Routes = [
+  {
+    path: '{{ moduleNameCamel }}s',
+    data: { title: '{{ moduleNamePlural }}' },
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full',
+      },
+      {
+        path: 'list',
+        component: {{ moduleName }}ListComponent,
+        data: { title: 'List' },
+      },
+      {
+        path: 'create',
+        component: {{ moduleName }}DetailComponent,
+        data: { title: 'Create' },
+        children: [
+          {
+            path: '',
+            component: {{ moduleName }}FormComponent,
+          },
+        ],
+      },
+      {
+        path: ':id',
+        component: {{ moduleName }}DetailComponent,
+        resolve: {
+          {{ moduleNameCamel }}: {{ moduleNamePlural }}Resolver,
+        },
+        data: { title: '{{ moduleNameCamel }}' },
+        children: [
+          {
+            path: '',
+            redirectTo: 'edit',
+            pathMatch: 'full',
+          },
+          {
+            path: 'edit',
+            component: {{ moduleName }}FormComponent,
+            data: { title: 'Edit' },
+          },
+        ],
+      },
+    ],
+  },
+]

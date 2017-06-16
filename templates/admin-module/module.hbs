@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router'
+import { ColmenaUiModule } from '@colmena/admin-ui'
+
+import { {{ moduleName }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
+import { {{ moduleName }}FormComponent } from './components/{{ moduleFileName }}.form.component'
+import { {{ moduleName }}HeaderComponent } from './components/{{ moduleFileName }}.header.component'
+import { {{ moduleName }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
+import { {{ moduleName }}TabsComponent } from './components/{{ moduleFileName }}.tabs.component'
+
+import { {{ moduleNamePlural }}Service } from './{{ moduleFileName }}.service'
+import { {{ moduleNamePlural }}Resolver } from './{{ moduleFileName }}.resolvers'
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ColmenaUiModule,
+    RouterModule,
+  ],
+  declarations: [
+    {{ moduleName }}DetailComponent,
+    {{ moduleName }}FormComponent,
+    {{ moduleName }}HeaderComponent,
+    {{ moduleName }}ListComponent,
+    {{ moduleName }}TabsComponent,
+  ],
+  providers: [
+    {{ moduleNamePlural }}Service,
+    {{ moduleNamePlural }}Resolver,
+  ],
+})
+export class {{ moduleNamePlural }}Module { }

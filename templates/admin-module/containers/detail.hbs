@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
-import { TestsService } from '../tests.service'
-import { NavTabLink } from '../components/test-tabs.component'
+import { {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}s.service'
+import { NavTabLink } from '../components/{{ moduleFileName }}-tabs.component'
 
 @Component({
-  selector: 'app-test-detail',
+  selector: 'app-{{ moduleFileName }}-detail',
   template: `
     <div class="card">
       <div class="card-header">
-        <app-test-header [item]="item"></app-test-header>
-        <app-test-tabs [tabs]="tabs"></app-test-tabs>
+        <app-{{ moduleFileName }}-header [item]="item"></app-{{ moduleFileName }}-header>
+        <app-{{ moduleFileName }}-tabs [tabs]="tabs"></app-{{ moduleFileName }}-tabs>
       </div>
       <div class="card-block">
         <router-outlet></router-outlet>
@@ -23,7 +23,7 @@ import { NavTabLink } from '../components/test-tabs.component'
     }
   `],
 })
-export class TestDetailComponent implements OnInit {
+export class {{ moduleName }}DetailComponent implements OnInit {
   public tabs: NavTabLink[] = [
     { icon: 'fa fa-pencil', title: 'Edit', link: 'edit' },
   ]
@@ -31,18 +31,18 @@ export class TestDetailComponent implements OnInit {
   public item: any
 
   constructor(
-    private service: TestsService,
+    private service: {{ moduleNamePlural }}Service,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.item = this.route.snapshot.data.test
+    this.item = this.route.snapshot.data.{{ moduleNameCamel }}
 
     if (!this.item) {
       this.tabs = [
         { icon: 'fa fa-plus', title: 'Create', link: '' },
       ]
     }
-    this.service.setSelectedTest(this.item)
+    this.service.setSelected{{ moduleName }}(this.item)
   }
 }
