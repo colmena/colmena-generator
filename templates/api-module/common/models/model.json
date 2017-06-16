@@ -1,0 +1,23 @@
+{
+  "name": "{{ moduleName }}",
+  "plural": "{{ moduleNamePlural }}",
+  "description": "{{ moduleName }}",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "forceId": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "String"
+    },
+    "name": {
+      "type": "String"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
