@@ -8,7 +8,7 @@ const {checkbox, directory, input} = require('../lib/inputs')
 
 module.exports = function(plop) {
 
-  const generatorName = 'admin-module'
+  const generatorName = 'angular-module'
 
   const description = 'Generate an Angular module for @colmena/admin';
 

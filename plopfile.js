@@ -8,7 +8,7 @@ const path = require('path')
 const { branding } = require('./lib/functions')
 
 const generators = {
-  'admin-module': './templates/admin-module',
+  'angular-module': './templates/angular-module',
   'api-module': './templates/api-module',
 }
 
