@@ -4,15 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ColmenaUiModule } from '@colmena/admin-ui'
 
-import { {{ properCase modelName }}DetailComponent } from './containers/{{ dashCase modelName }}-detail.component'
-import { {{ properCase modelName }}FormComponent } from './components/{{ dashCase modelName }}-form.component'
-import { {{ properCase modelName }}HeaderComponent } from './components/{{ dashCase modelName }}-header.component'
-import { {{ properCase modelName }}ListComponent } from './containers/{{ dashCase modelName }}-list.component'
-import { {{ properCase modelName }}TabsComponent } from './components/{{ dashCase modelName }}-tabs.component'
+import { {{ properCase model }}DetailComponent } from './containers/{{ dashCase model }}-detail.component'
+import { {{ properCase model }}FormComponent } from './components/{{ dashCase model }}-form.component'
+import { {{ properCase model }}HeaderComponent } from './components/{{ dashCase model }}-header.component'
+import { {{ properCase model }}ListComponent } from './containers/{{ dashCase model }}-list.component'
+import { {{ properCase model }}TabsComponent } from './components/{{ dashCase model }}-tabs.component'
 
-import { {{ properCase modelName }}sService } from './{{ dashCase modelName }}s.service'
-
-import { {{ properCase modelName }}sResolver } from './{{ dashCase modelName }}s.resolvers'
+import { {{ properCase model }}sService } from './{{ dashCase model }}s.service'
+import { {{ properCase model }}sResolver } from './{{ dashCase model }}s.resolvers'
 
 @NgModule({
   imports: [
@@ -23,15 +22,15 @@ import { {{ properCase modelName }}sResolver } from './{{ dashCase modelName }}s
     RouterModule,
   ],
   declarations: [
-    {{ properCase modelName }}DetailComponent,
-    {{ properCase modelName }}FormComponent,
-    {{ properCase modelName }}HeaderComponent,
-    {{ properCase modelName }}ListComponent,
-    {{ properCase modelName }}TabsComponent,
+    {{ properCase model }}DetailComponent,
+    {{ properCase model }}FormComponent,
+    {{ properCase model }}HeaderComponent,
+    {{ properCase model }}ListComponent,
+    {{ properCase model }}TabsComponent,
   ],
   providers: [
-    {{ properCase modelName }}sService,
-    {{ properCase modelName }}Resolver,
+    {{ properCase model }}sService,
+    {{ properCase model }}Resolver,
   ],
 })
-export class {{ properCase modelName }}sModule { }
+export class {{ properCase model }}sModule { }

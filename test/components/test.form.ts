@@ -2,27 +2,27 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { UiService } from '@colmena/admin-ui'
 
-import { {{ properCase model }}, {{ properCase model }}sService } from '../{{ dashCase model }}.service'
+import { Test, TestsService } from '../test.service'
 
 @Component({
-  selector: 'app-{{ dashCase model }}-form',
+  selector: 'app-test-form',
   template: `
     <ui-form *ngIf="item" [config]="formConfig" [item]="item" (action)="handleAction($event)"></ui-form>
   `,
 })
-export class {{ properCase model }}FormComponent implements OnInit {
+export class TestFormComponent implements OnInit {
 
   public formConfig: any = {}
   public item: any
 
   constructor(
-    private service: {{ properCase model }}sService,
+    private service: TestsService,
     private uiService: UiService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.item = this.service.selected{{ properCase model }} || new {{ properCase model }}()
+    this.item = this.service.selectedTest || new Test()
     this.formConfig = this.service.getFormConfig()
   }
 
@@ -32,12 +32,12 @@ export class {{ properCase model }}FormComponent implements OnInit {
         return this.service.upsertItem(
           event.item,
           () => {
-            this.uiService.toastSuccess('Save {{ properCase model }} Success', `<u>${event.item.name}</u> has been saved successfully`)
+            this.uiService.toastSuccess('Save Test Success', `<u>${event.item.name}</u> has been saved successfully`)
           },
-          err => this.uiService.toastError('Save {{ properCase model }} Fail', err.message)
-        ).add(() => this.router.navigate(['/system/{{ dashCase model }}']))
+          err => this.uiService.toastError('Save Test Fail', err.message)
+        ).add(() => this.router.navigate(['/system/test']))
       case 'cancel':
-        return this.router.navigate(['/system/{{ dashCase model }}'])
+        return this.router.navigate(['/system/test'])
       default:
         return console.log('Unknown event action:', event)
     }

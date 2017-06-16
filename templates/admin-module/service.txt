@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
-import { {{ properCase modelName }}, {{ properCase modelName }}Api } from '@colmena/admin-lb-sdk'
-export { {{ properCase modelName }} } from '@colmena/admin-lb-sdk'
+import { {{ properCase model }}, {{ properCase model }}Api } from '@colmena/admin-lb-sdk'
+export { {{ properCase model }} } from '@colmena/admin-lb-sdk'
 import { UiDataGridService, FormService } from '@colmena/admin-ui'
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 
 @Injectable()
-export class {{ properCase modelName }}sService extends UiDataGridService {
+export class {{ properCase model }}sService extends UiDataGridService {
 
   public icon = 'icon-globe'
-  public title = '{{ properCase modelName }}s'
-  public selected{{ properCase modelName }}: {{ properCase modelName }}
+  public title = '{{ properCase model }}s'
+  public selected{{ properCase model }}: {{ properCase model }}
 
   public tableColumns = [
     { field: 'id', label: 'ID', action: 'view' },
@@ -18,15 +18,15 @@ export class {{ properCase modelName }}sService extends UiDataGridService {
   ]
 
   constructor(
-    private {{ camelCase modelName }}Api: {{ properCase modelName }}Api,
+    private {{ camelCase model }}Api: {{ properCase model }}Api,
     private formService: FormService,
   ) {
     super()
     this.columns = this.tableColumns
   }
 
-  setSelected{{ properCase modelName }}({{ camelCase modelName }}: {{ properCase modelName }}) {
-    this.selected{{ properCase modelName }} = {{ camelCase modelName }}
+  setSelected{{ properCase model }}({{ camelCase model }}: {{ properCase model }}) {
+    this.selected{{ properCase model }} = {{ camelCase model }}
   }
 
   getFormFields() {
@@ -59,34 +59,34 @@ export class {{ properCase modelName }}sService extends UiDataGridService {
     }
   }
 
-  getItems(): Observable<{{ properCase modelName }}[]> {
-    return this.{{ camelCase modelName }}Api.find(this.getFilters())
+  getItems(): Observable<{{ properCase model }}[]> {
+    return this.{{ camelCase model }}Api.find(this.getFilters())
   }
 
-  getItem(id): Observable<{{ properCase modelName }}> {
-    return this.{{ camelCase modelName }}Api.findById(id)
+  getItem(id): Observable<{{ properCase model }}> {
+    return this.{{ camelCase model }}Api.findById(id)
   }
 
   getItemCount(): Observable<any> {
-    return this.{{ camelCase modelName }}Api.count(this.getWhereFilters())
+    return this.{{ camelCase model }}Api.count(this.getWhereFilters())
   }
 
   upsertItem(item, successCb, errorCb): Subscription {
     if (item.id) {
-      return this.upsert{{ properCase modelName }}(item, successCb, errorCb)
+      return this.upsert{{ properCase model }}(item, successCb, errorCb)
     }
-    return this.create{{ properCase modelName }}(item, successCb, errorCb)
+    return this.create{{ properCase model }}(item, successCb, errorCb)
   }
 
-  upsert{{ properCase modelName }}(item, successCb, errorCb): Subscription {
-    return this.{{ camelCase modelName }}Api.upsert(item).subscribe(successCb, errorCb)
+  upsert{{ properCase model }}(item, successCb, errorCb): Subscription {
+    return this.{{ camelCase model }}Api.upsert(item).subscribe(successCb, errorCb)
   }
 
-  create{{ properCase modelName }}(item, successCb, errorCb): Subscription {
-    return this.{{ camelCase modelName }}Api.create(item).subscribe(successCb, errorCb)
+  create{{ properCase model }}(item, successCb, errorCb): Subscription {
+    return this.{{ camelCase model }}Api.create(item).subscribe(successCb, errorCb)
   }
 
   deleteItem(item, successCb, errorCb): Subscription {
-    return this.{{ camelCase modelName }}Api.deleteById(item.id).subscribe(successCb, errorCb)
+    return this.{{ camelCase model }}Api.deleteById(item.id).subscribe(successCb, errorCb)
   }
 }

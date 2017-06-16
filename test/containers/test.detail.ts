@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
-import { {{ properCase model }}sService } from '../{{ dashCase model }}s.service'
-import { NavTabLink } from '../components/{{ dashCase model }}-tabs.component'
+import { TestsService } from '../tests.service'
+import { NavTabLink } from '../components/test-tabs.component'
 
 @Component({
-  selector: 'app-{{ dashCase model }}-detail',
+  selector: 'app-test-detail',
   template: `
     <div class="card">
       <div class="card-header">
-        <app-{{ dashCase model }}-header [item]="item"></app-{{ dashCase model }}-header>
-        <app-{{ dashCase model }}-tabs [tabs]="tabs"></app-{{ dashCase model }}-tabs>
+        <app-test-header [item]="item"></app-test-header>
+        <app-test-tabs [tabs]="tabs"></app-test-tabs>
       </div>
       <div class="card-block">
         <router-outlet></router-outlet>
@@ -23,7 +23,7 @@ import { NavTabLink } from '../components/{{ dashCase model }}-tabs.component'
     }
   `],
 })
-export class {{ properCase model }}DetailComponent implements OnInit {
+export class TestDetailComponent implements OnInit {
   public tabs: NavTabLink[] = [
     { icon: 'fa fa-pencil', title: 'Edit', link: 'edit' },
   ]
@@ -31,18 +31,18 @@ export class {{ properCase model }}DetailComponent implements OnInit {
   public item: any
 
   constructor(
-    private service: {{ properCase model }}sService,
+    private service: TestsService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.item = this.route.snapshot.data.{{ camelCase model }}
+    this.item = this.route.snapshot.data.test
 
     if (!this.item) {
       this.tabs = [
         { icon: 'fa fa-plus', title: 'Create', link: '' },
       ]
     }
-    this.service.setSelected{{ properCase model }}(this.item)
+    this.service.setSelectedTest(this.item)
   }
 }

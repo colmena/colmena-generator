@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-  selector: 'app-{{ dashCase model }}-tabs',
+  selector: 'app-test-tabs',
   template: `
     <ul class="nav nav-tabs card-header-tabs">
       <li *ngFor="let item of tabs" class="nav-item">
         <a [routerLink]="item.link" routerLinkActive="active" class="nav-link">
-          <i [class]="item.icon"></i> &nbsp; {{ item.title }}
+          <i [class]="item.icon"></i> &nbsp; 
         </a>
       </li>
     </ul>
@@ -28,7 +28,7 @@ import { Component, Input } from '@angular/core'
     }
   `],
 })
-export class {{ properCase model }}TabsComponent {
+export class TestTabsComponent {
 
   @Input() tabs: NavTabLink[]
 

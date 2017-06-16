@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router'
 
-import { {{ properCase modelName }}ListComponent } from './containers/{{ dashCase modelName }}-list.component'
-import { {{ properCase modelName }}DetailComponent } from './containers/{{ dashCase modelName }}-detail.component'
-import { {{ properCase modelName }}FormComponent } from './components/{{ dashCase modelName }}-form.component'
+import { {{ properCase model }}ListComponent } from './containers/{{ dashCase model }}-list.component'
+import { {{ properCase model }}DetailComponent } from './containers/{{ dashCase model }}-detail.component'
+import { {{ properCase model }}FormComponent } from './components/{{ dashCase model }}-form.component'
 
-import { {{ properCase modelName }}Resolver } from './{{ dashCase modelName }}s.resolvers'
+import { {{ properCase model }}Resolver } from './{{ dashCase model }}s.resolvers'
 
-export const {{ properCase modelName }}sRoutes: Routes = [
+export const {{ properCase model }}sRoutes: Routes = [
   {
-    path: '{{ camelCase modelName }}s',
-    data: { title: '{{ properCase modelName }}s' },
+    path: '{{ camelCase model }}s',
+    data: { title: '{{ properCase model }}s' },
     children: [
       {
         path: '',
@@ -18,27 +18,27 @@ export const {{ properCase modelName }}sRoutes: Routes = [
       },
       {
         path: 'list',
-        component: {{ properCase modelName }}ListComponent,
+        component: {{ properCase model }}ListComponent,
         data: { title: 'List' },
       },
       {
         path: 'create',
-        component: {{ properCase modelName }}DetailComponent,
+        component: {{ properCase model }}DetailComponent,
         data: { title: 'Create' },
         children: [
           {
             path: '',
-            component: {{ properCase modelName }}FormComponent,
+            component: {{ properCase model }}FormComponent,
           },
         ],
       },
       {
         path: ':id',
-        component: {{ properCase modelName }}DetailComponent,
+        component: {{ properCase model }}DetailComponent,
         resolve: {
-          {{ camelCase modelName }}: {{ properCase modelName }}Resolver,
+          {{ camelCase model }}: {{ properCase model }}Resolver,
         },
-        data: { title: '{{ camelCase modelName }}' },
+        data: { title: '{{ camelCase model }}' },
         children: [
           {
             path: '',
@@ -47,7 +47,7 @@ export const {{ properCase modelName }}sRoutes: Routes = [
           },
           {
             path: 'edit',
-            component: {{ properCase modelName }}FormComponent,
+            component: {{ properCase model }}FormComponent,
             data: { title: 'Edit' },
           },
         ],

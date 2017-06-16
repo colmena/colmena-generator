@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core'
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 
-import { {{ properCase modelName }}, {{ properCase modelName }}sService } from './{{ dashCase modelName }}s.service'
+import { {{ properCase model }}, {{ properCase model }}sService } from './{{ dashCase model }}s.service'
 
 @Injectable()
-export class {{ properCase modelName }}sResolver implements Resolve<{{ properCase modelName }}> {
+export class {{ properCase model }}sResolver implements Resolve<{{ properCase model }}> {
 
-  constructor(private service: {{ properCase modelName }}sService) {}
+  constructor(private service: {{ properCase model }}sService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{{ properCase modelName }}> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{{ properCase model }}> {
     return this.service.getItem(route.params.id)
   }
 }

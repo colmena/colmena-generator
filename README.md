@@ -1,4 +1,16 @@
-# @colmena/colmena-generator
+<h3 align="center">
+
+```javascript
+            .__                            *
+   ____  ____ |  |   _____   ____   ____ _____ @
+_/ ___\/  _ \|  |  /     \_/ __ \ /    \\__  \
+  \  \__(  <_> )  |_|  Y Y  \  ___/|   |  \/ __ \_
+   \___  >____/|____/__|_|  /\___  >___|  (____  /
+      \/    GENERATOR    \/     \/     \/     \/
+                      @colmena/colmena-generator
+```
+
+</h3>
 
 > Proof of Concept: Code Generator for Colmena
 
