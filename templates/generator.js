@@ -1,9 +1,7 @@
-const chalk = require('chalk')
 const path = require('path')
-
 const log = require('../lib/logger')
 
-const { kebabCase } = require('lodash')
+const { moduleNames } = require('../lib/functions')
 
 const { input } = require('../lib/inputs')
 
@@ -19,15 +17,7 @@ module.exports = function(plop) {
   const actions = data => {
     const actions = []
 
-    // Create some variants of the module name
-    const modulePath = data.path
-    const moduleName = data.name
-    const moduleFileName = kebabCase(moduleName)
-
-    // Make the variable available to the templates
-    data.modulePath = modulePath
-    data.moduleName = moduleName
-    data.moduleFileName = moduleFileName
+    data = moduleNames(data)
 
     // Push and add action to the actions array, prepend target and template path
     const addFile = (templateFile, ...targetFiles) =>
@@ -41,11 +31,11 @@ module.exports = function(plop) {
     const handlers = {
       packageJson: () => {
         log.white.b('Adding package.json...')
-        addFile('package.json', `${targetPath}/${moduleFileName}/package.json`)
+        addFile('package.json', `${targetPath}/${data.moduleFileName}/package.json`)
       },
       generatorJs: () => {
         log.white.b('Adding generator.js...')
-        addFile('generator.js.hbs', `${targetPath}/${moduleFileName}.js`)
+        addFile('generator.js.hbs', `${targetPath}/${data.moduleFileName}.js`)
       },
     }
 

@@ -1,8 +1,7 @@
-const chalk = require('chalk')
 const path = require('path')
 const log = require('../lib/logger')
 
-const { kebabCase, camelCase } = require('lodash')
+const { moduleNames } = require('../lib/functions')
 
 const { checkbox, directory, input } = require('../lib/inputs')
 
@@ -26,43 +25,33 @@ module.exports = function(plop) {
   const actions = data => {
     const actions = []
 
-    // Create some variants of the module name
-    const moduleName = data.module
-    const moduleNamePlural = moduleName + 's'
-    const moduleFileName = kebabCase(moduleName)
-    const moduleNameCamel = camelCase(moduleName)
-
-    // Make the variable available to the templates
-    data.moduleName = moduleName
-    data.moduleNamePlural = moduleNamePlural
-    data.moduleFileName = moduleFileName
-    data.moduleNameCamel = moduleNameCamel
+    data = moduleNames(data)
 
     // Push and add action to the actions array, prepend target and template path
     const addFile = (templateFile, ...targetFiles) =>
       actions.push({
         type: 'add',
         templateFile: path.join(generatorName, templateFile),
-        path: path.join(moduleFileName, ...targetFiles),
+        path: path.join(data.moduleFileName, ...targetFiles),
       })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
       service: () => {
         log.white.b('Adding Service...')
-        addFile('service.hbs', `${moduleFileName}.service.ts`)
+        addFile('service.hbs', `${data.moduleFileName}.service.ts`)
       },
       resolvers: () => {
         log.white.b('Adding Resolvers...')
-        addFile('resolvers.hbs', `${moduleFileName}.resolvers.ts`)
+        addFile('resolvers.hbs', `${data.moduleFileName}.resolvers.ts`)
       },
       module: () => {
         log.white.b(`Generating Angular Module`)
-        addFile('module.hbs', `${moduleFileName}.module.ts`)
+        addFile('module.hbs', `${data.moduleFileName}.module.ts`)
       },
       routes: () => {
         log.white.b('Adding Routes...')
-        addFile('routes.hbs', `${moduleFileName}.routes.ts`)
+        addFile('routes.hbs', `${data.moduleFileName}.routes.ts`)
       },
       components: () => {
         const components = ['form', 'header', 'tabs']
@@ -71,7 +60,7 @@ module.exports = function(plop) {
           log.white.b(`Adding Component ${component}...`)
           addFile(
             `components/${component}.hbs`,
-            `components/${moduleFileName}.${component}.component.ts`
+            `components/${data.moduleFileName}.${component}.component.ts`
           )
         })
       },
@@ -82,7 +71,7 @@ module.exports = function(plop) {
           log.white.b(`Adding Container ${container}...`)
           addFile(
             `containers/${container}.hbs`,
-            `containers/${moduleFileName}.${container}.component.ts`
+            `containers/${data.moduleFileName}.${container}.component.ts`
           )
         })
       },

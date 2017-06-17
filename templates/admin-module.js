@@ -1,9 +1,9 @@
 const path = require('path')
 const log = require('../lib/logger')
 
-const {moduleNames} = require('../lib/functions')
+const { moduleNames } = require('../lib/functions')
 
-const {input} = require('../lib/inputs')
+const { input } = require('../lib/inputs')
 
 const generatorName = 'admin-module'
 const description = 'Generate a admin-module'

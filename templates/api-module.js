@@ -1,8 +1,7 @@
-const chalk = require('chalk')
 const path = require('path')
 const log = require('../lib/logger')
 
-const { kebabCase, camelCase } = require('lodash')
+const { moduleNames } = require('../lib/functions')
 
 const { directory, input } = require('../lib/inputs')
 
@@ -18,28 +17,14 @@ module.exports = function(plop) {
   const actions = data => {
     const actions = []
 
-    // Create some variants of the module name
-    const moduleScope = '@colmena'
-    const modulePath = data.path
-    const moduleName = data.name
-    const moduleNamePlural = moduleName + 's'
-    const moduleFileName = kebabCase(moduleName)
-    const moduleNameCamel = camelCase(moduleName)
-
-    // Make the variable available to the templates
-    data.moduleScope = moduleScope
-    data.modulePath = modulePath
-    data.moduleName = moduleName
-    data.moduleNamePlural = moduleNamePlural
-    data.moduleFileName = moduleFileName
-    data.moduleNameCamel = moduleNameCamel
+    data = moduleNames(data)
 
     // Push and add action to the actions array, prepend target and template path
     const addFile = (templateFile, ...targetFiles) =>
       actions.push({
         type: 'add',
         templateFile: path.join(generatorName, templateFile),
-        path: path.join(modulePath, moduleFileName, ...targetFiles),
+        path: path.join(data.modulePath, data.moduleFileName, ...targetFiles),
       })
 
     // These are the handlers for each of the moduleItems we can generate
@@ -60,7 +45,7 @@ module.exports = function(plop) {
         log.white.b('Adding common/models/model.json...')
         addFile(
           'common/models/model.json',
-          `common/models/${moduleFileName}.json`
+          `common/models/${data.moduleFileName}.json`
         )
       },
     }
