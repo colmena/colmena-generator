@@ -2,24 +2,23 @@ const chalk = require('chalk')
 const path = require('path')
 const log = require('../lib/logger')
 
-const {kebabCase, camelCase} = require('lodash')
+const { kebabCase, camelCase } = require('lodash')
 
-const {checkbox, directory, input} = require('../lib/inputs')
+const { checkbox, directory, input } = require('../lib/inputs')
 
 module.exports = function(plop) {
-
   const generatorName = 'angular-module'
 
-  const description = 'Generate an Angular module for @colmena/admin';
+  const description = 'Generate an Angular module for @colmena/admin'
 
   const prompts = [
     input('module', 'Module:', true),
     checkbox('moduleItems', 'Select the items you want to include:', [
-      {name: 'Service', value: 'service', checked: true},
-      {name: 'Resolvers', value: 'resolvers', checked: true},
-      {name: 'Routes', value: 'routes', checked: true},
-      {name: 'Containers', value: 'containers', checked: true},
-      {name: 'Components', value: 'components', checked: true},
+      { name: 'Service', value: 'service', checked: true },
+      { name: 'Resolvers', value: 'resolvers', checked: true },
+      { name: 'Routes', value: 'routes', checked: true },
+      { name: 'Containers', value: 'containers', checked: true },
+      { name: 'Components', value: 'components', checked: true },
     ]),
     directory('path', 'Path:', plop.getDestBasePath()),
   ]
@@ -40,12 +39,12 @@ module.exports = function(plop) {
     data.moduleNameCamel = moduleNameCamel
 
     // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) => actions.push({
-      type: 'add',
-      templateFile: path.join(generatorName, templateFile),
-      path: path.join(moduleFileName, ...targetFiles),
-    })
-
+    const addFile = (templateFile, ...targetFiles) =>
+      actions.push({
+        type: 'add',
+        templateFile: path.join(generatorName, templateFile),
+        path: path.join(moduleFileName, ...targetFiles),
+      })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
@@ -70,7 +69,10 @@ module.exports = function(plop) {
 
         components.forEach(component => {
           log.white.b(`Adding Component ${component}...`)
-          addFile(`components/${component}.hbs`, `components/${moduleFileName}.${component}.component.ts`)
+          addFile(
+            `components/${component}.hbs`,
+            `components/${moduleFileName}.${component}.component.ts`
+          )
         })
       },
       containers: () => {
@@ -78,7 +80,10 @@ module.exports = function(plop) {
 
         containers.forEach(container => {
           log.white.b(`Adding Container ${container}...`)
-          addFile(`containers/${container}.hbs`, `containers/${moduleFileName}.${container}.component.ts`)
+          addFile(
+            `containers/${container}.hbs`,
+            `containers/${moduleFileName}.${container}.component.ts`
+          )
         })
       },
     }
@@ -96,5 +101,5 @@ module.exports = function(plop) {
     return actions
   }
 
-  plop.setGenerator(generatorName, {description, prompts, actions})
+  plop.setGenerator(generatorName, { description, prompts, actions })
 }

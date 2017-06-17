@@ -20,8 +20,6 @@ module.exports = function(plop) {
   // Add plop prompt types
   plop.addPrompt('directory', require('inquirer-directory'))
 
-  console.log(plop.getDestBasePath())
-
   // Load the generators
   Object.keys(generators).forEach(generator => plop.load(generators[generator]))
 }
