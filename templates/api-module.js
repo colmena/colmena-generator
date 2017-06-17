@@ -1,50 +1,45 @@
 const path = require('path')
 const log = require('../lib/logger')
 
-const { moduleNames } = require('../lib/functions')
+const { createActionsArray, moduleNames } = require('../lib/functions')
 
 const { directory, input } = require('../lib/inputs')
 
-module.exports = function(plop) {
-  const generatorName = 'api-module'
-  const description = 'Generate a LoopBack module for @colmena/api'
+const generatorName = 'api-module'
+const description = 'Generate a LoopBack module for @colmena/api'
 
+module.exports = function(plop) {
+  const basePath = plop.getDestBasePath()
   const prompts = [
     input('name', 'Name:', true),
-    directory('path', 'Path:', plop.getDestBasePath()),
+    directory('path', 'Path:', basePath),
   ]
 
   const actions = data => {
-    const actions = []
+    const targetPath = path.join(data.path, data.moduleFileName)
+    const actions = createActionsArray(generatorName)
 
     data = moduleNames(data)
-
-    // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) =>
-      actions.push({
-        type: 'add',
-        templateFile: path.join(generatorName, templateFile),
-        path: path.join(data.modulePath, data.moduleFileName, ...targetFiles),
-      })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
       indexJs: () => {
         log.white.b('Adding index.js...')
-        addFile('index.js', 'index.js')
+        actions.addFile('index.js', targetPath, 'index.js')
       },
       packageJson: () => {
         log.white.b('Adding package.json...')
-        addFile('package.json', 'package.json')
+        actions.addFile('package.json', targetPath, 'package.json')
       },
       sampleData: () => {
         log.white.b('Adding sample-data/sample-data.json...')
-        addFile('sample-data/sample-data.json', 'sample-data/sample-data.json')
+        actions.addFile('sample-data/sample-data.json', targetPath, 'sample-data/sample-data.json')
       },
       commonModels: () => {
         log.white.b('Adding common/models/model.json...')
-        addFile(
+        actions.addFile(
           'common/models/model.json',
+          targetPath,
           `common/models/${data.moduleFileName}.json`
         )
       },

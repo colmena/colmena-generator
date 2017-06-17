@@ -1,53 +1,44 @@
 const path = require('path')
 const log = require('../lib/logger')
 
-const { moduleNames } = require('../lib/functions')
+const {createActionsArray, moduleNames} = require('../lib/functions')
 
-const { input } = require('../lib/inputs')
+const {input} = require('../lib/inputs')
 
 const generatorName = 'admin-module'
 const description = 'Generate a admin-module'
 
 module.exports = function (plop) {
-
   const basePath = plop.getDestBasePath()
-  const targetPath = path.join(basePath, 'out')
-
   const prompts = [
     input('name', 'Name:', true),
   ]
 
   const actions = data => {
-    const actions = []
+    const targetPath = path.join(basePath, 'out')
+    const actions = createActionsArray(generatorName)
 
     data = moduleNames(data)
-
-    // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) => actions.push({
-      type: 'add',
-      templateFile: path.join(generatorName, templateFile),
-      path: path.join(...targetFiles),
-    })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
       jsonFiles: () => {
         log.white.b('Adding package.json...')
-        addFile('package.json', `${targetPath}/${data.moduleFileName}/package.json`)
+        actions.addFile('package.json', targetPath, `${data.moduleFileName}/package.json`)
         log.white.b('Adding tsconfig.json...')
-        addFile('tsconfig.json', `${targetPath}/${data.moduleFileName}/tsconfig.json`)
+        actions.addFile('tsconfig.json', targetPath, `${data.moduleFileName}/tsconfig.json`)
       },
       dotFiles: () => {
         log.white.b('Adding .npmrc...')
-        addFile('.npmrc', `${targetPath}/${data.moduleFileName}/.npmrc`)
+        actions.addFile('.npmrc', targetPath, `${data.moduleFileName}/.npmrc`)
       },
       tsFiles: () => {
         log.white.b('Adding index.ts...')
-        addFile('index.ts', `${targetPath}/${data.moduleFileName}/index.ts`)
+        actions.addFile('index.ts', targetPath, `${data.moduleFileName}/index.ts`)
         log.white.b('Adding src/index.ts...')
-        addFile('src/index.ts', `${targetPath}/${data.moduleFileName}/src/index.ts`)
+        actions.addFile('src/index.ts', targetPath, `${data.moduleFileName}/src/index.ts`)
         log.white.b('Adding src/module.ts...')
-        addFile('src/module.ts', `${targetPath}/${data.moduleFileName}/src/${data.moduleFileName}.module.ts`)
+        actions.addFile('src/module.ts', targetPath, `${data.moduleFileName}/src/${data.moduleFileName}.module.ts`)
       },
     }
 

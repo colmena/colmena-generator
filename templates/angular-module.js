@@ -1,15 +1,15 @@
 const path = require('path')
 const log = require('../lib/logger')
 
-const { moduleNames } = require('../lib/functions')
+const { createActionsArray, moduleNames } = require('../lib/functions')
 
 const { checkbox, directory, input } = require('../lib/inputs')
 
+const generatorName = 'angular-module'
+const description = 'Generate an Angular module for @colmena/admin'
+
 module.exports = function(plop) {
-  const generatorName = 'angular-module'
-
-  const description = 'Generate an Angular module for @colmena/admin'
-
+  const basePath = plop.getDestBasePath()
   const prompts = [
     input('module', 'Module:', true),
     checkbox('moduleItems', 'Select the items you want to include:', [
@@ -19,47 +19,41 @@ module.exports = function(plop) {
       { name: 'Containers', value: 'containers', checked: true },
       { name: 'Components', value: 'components', checked: true },
     ]),
-    directory('path', 'Path:', plop.getDestBasePath()),
+    directory('path', 'Path:', basePath),
   ]
 
   const actions = data => {
-    const actions = []
+    const targetPath = data.moduleFileName
+    const actions = createActionsArray(generatorName)
 
     data = moduleNames(data)
-
-    // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) =>
-      actions.push({
-        type: 'add',
-        templateFile: path.join(generatorName, templateFile),
-        path: path.join(data.moduleFileName, ...targetFiles),
-      })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
       service: () => {
         log.white.b('Adding Service...')
-        addFile('service.hbs', `${data.moduleFileName}.service.ts`)
+        actions.addFile('service.hbs', targetPath, `${data.moduleFileName}.service.ts`)
       },
       resolvers: () => {
         log.white.b('Adding Resolvers...')
-        addFile('resolvers.hbs', `${data.moduleFileName}.resolvers.ts`)
+        actions.addFile('resolvers.hbs', targetPath, `${data.moduleFileName}.resolvers.ts`)
       },
       module: () => {
         log.white.b(`Generating Angular Module`)
-        addFile('module.hbs', `${data.moduleFileName}.module.ts`)
+        actions.addFile('module.hbs', targetPath, `${data.moduleFileName}.module.ts`)
       },
       routes: () => {
         log.white.b('Adding Routes...')
-        addFile('routes.hbs', `${data.moduleFileName}.routes.ts`)
+        actions.addFile('routes.hbs', targetPath, `${data.moduleFileName}.routes.ts`)
       },
       components: () => {
         const components = ['form', 'header', 'tabs']
 
         components.forEach(component => {
           log.white.b(`Adding Component ${component}...`)
-          addFile(
+          actions.addFile(
             `components/${component}.hbs`,
+            targetPath,
             `components/${data.moduleFileName}.${component}.component.ts`
           )
         })
@@ -69,8 +63,9 @@ module.exports = function(plop) {
 
         containers.forEach(container => {
           log.white.b(`Adding Container ${container}...`)
-          addFile(
+          actions.addFile(
             `containers/${container}.hbs`,
+            targetPath,
             `containers/${data.moduleFileName}.${container}.component.ts`
           )
         })
