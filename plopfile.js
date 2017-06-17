@@ -10,6 +10,7 @@ const { branding } = require('./lib/functions')
 const generators = {
   'angular-module': './templates/angular-module',
   'api-module': './templates/api-module',
+  'colmena-generator': './templates/generator',
 }
 
 module.exports = function(plop) {
