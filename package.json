@@ -29,6 +29,7 @@
     "chalk": "^1.1.3",
     "eslint": "^4.0.0",
     "eslint-plugin-prettier": "^2.1.2",
+    "handlebars": "^4.0.10",
     "inquirer-directory": "^2.1.0",
     "lodash": "^4.17.4",
     "lodash-inflection": "^1.5.0",
