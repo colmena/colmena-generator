@@ -1,17 +1,14 @@
 'use strict'
 
-// const _ = require('lodash')
-// _.mixin(require('lodash-inflection'))
-
 const path = require('path')
 
-const { branding } = require('./lib/functions')
+const { branding, getGenerators } = require('./lib/functions')
 
-const generators = {
-  'angular-module': './templates/angular-module',
-  'api-module': './templates/api-module',
-  'colmena-generator': './templates/generator',
-}
+const generators = {}
+
+getGenerators().forEach(generator => {
+  generators[generator] = `./templates/${generator}`
+})
 
 module.exports = function(plop) {
   // Show branding
@@ -22,6 +19,8 @@ module.exports = function(plop) {
 
   // Add plop prompt types
   plop.addPrompt('directory', require('inquirer-directory'))
+
+  console.log(plop.getDestBasePath())
 
   // Load the generators
   Object.keys(generators).forEach(generator => plop.load(generators[generator]))
