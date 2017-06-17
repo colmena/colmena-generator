@@ -3,21 +3,18 @@ const path = require('path')
 
 const log = require('../lib/logger')
 
-const {kebabCase} = require('lodash')
+const { kebabCase } = require('lodash')
 
-const {input} = require('../lib/inputs')
+const { input } = require('../lib/inputs')
 
 const generatorName = 'generator'
 const description = 'Generate a generator'
 
-module.exports = function (plop) {
-
+module.exports = function(plop) {
   const basePath = plop.getDestBasePath()
   const targetPath = path.join(basePath, 'templates')
 
-  const prompts = [
-    input('name', 'Name:', true),
-  ]
+  const prompts = [input('name', 'Name:', true)]
 
   const actions = data => {
     const actions = []
@@ -33,11 +30,12 @@ module.exports = function (plop) {
     data.moduleFileName = moduleFileName
 
     // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) => actions.push({
-      type: 'add',
-      templateFile: path.join(generatorName, templateFile),
-      path: path.join(...targetFiles),
-    })
+    const addFile = (templateFile, ...targetFiles) =>
+      actions.push({
+        type: 'add',
+        templateFile: path.join(generatorName, templateFile),
+        path: path.join(...targetFiles),
+      })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
@@ -51,10 +49,7 @@ module.exports = function (plop) {
       },
     }
 
-    const createActions = [
-      'packageJson',
-      'generatorJs',
-    ]
+    const createActions = ['packageJson', 'generatorJs']
 
     // Loop over all the selected moduleItems and execute their handler.
     createActions.forEach(
@@ -67,5 +62,5 @@ module.exports = function (plop) {
     return actions
   }
 
-  plop.setGenerator(generatorName, {description, prompts, actions})
+  plop.setGenerator(generatorName, { description, prompts, actions })
 }

@@ -8,6 +8,7 @@
     "Brannon N. Darby II <bdarby86@gmail.com> (https://github.com/brannon-darby)"
   ],
   "scripts": {
+    "lint": "eslint . --fix",
     "start": "plop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

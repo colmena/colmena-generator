@@ -2,12 +2,11 @@ const chalk = require('chalk')
 const path = require('path')
 const log = require('../lib/logger')
 
-const {kebabCase, camelCase} = require('lodash')
+const { kebabCase, camelCase } = require('lodash')
 
-const {directory, input} = require('../lib/inputs')
+const { directory, input } = require('../lib/inputs')
 
 module.exports = function(plop) {
-
   const generatorName = 'api-module'
   const description = 'Generate a LoopBack module for @colmena/api'
 
@@ -36,12 +35,12 @@ module.exports = function(plop) {
     data.moduleNameCamel = moduleNameCamel
 
     // Push and add action to the actions array, prepend target and template path
-    const addFile = (templateFile, ...targetFiles) => actions.push({
-      type: 'add',
-      templateFile: path.join(generatorName, templateFile),
-      path: path.join(modulePath, moduleFileName, ...targetFiles),
-    })
-
+    const addFile = (templateFile, ...targetFiles) =>
+      actions.push({
+        type: 'add',
+        templateFile: path.join(generatorName, templateFile),
+        path: path.join(modulePath, moduleFileName, ...targetFiles),
+      })
 
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
@@ -59,7 +58,10 @@ module.exports = function(plop) {
       },
       commonModels: () => {
         log.white.b('Adding common/models/model.json...')
-        addFile('common/models/model.json', `common/models/${moduleFileName}.json`)
+        addFile(
+          'common/models/model.json',
+          `common/models/${moduleFileName}.json`
+        )
       },
     }
 
@@ -81,5 +83,5 @@ module.exports = function(plop) {
     return actions
   }
 
-  plop.setGenerator(generatorName, {description, prompts, actions})
+  plop.setGenerator(generatorName, { description, prompts, actions })
 }
