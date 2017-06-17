@@ -7,8 +7,8 @@ const {kebabCase} = require('lodash')
 
 const {input} = require('../lib/inputs')
 
-const generatorName = 'generator'
-const description = 'Generate a generator'
+const generatorName = '{{ name }}'
+const description = 'Generate a {{ name }}'
 
 module.exports = function (plop) {
 
@@ -45,15 +45,10 @@ module.exports = function (plop) {
         log.white.b('Adding package.json...')
         addFile('package.json', `${targetPath}/${moduleFileName}/package.json`)
       },
-      generatorJs: () => {
-        log.white.b('Adding generator.js...')
-        addFile('generator.js.hbs', `${targetPath}/${moduleFileName}.js`)
-      },
     }
 
     const createActions = [
       'packageJson',
-      'generatorJs',
     ]
 
     // Loop over all the selected moduleItems and execute their handler.
