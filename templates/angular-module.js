@@ -23,7 +23,7 @@ module.exports = function(plop) {
   ]
 
   const actions = data => {
-    const targetPath = data.moduleFileName
+    const targetPath = data.module
     const actions = createActionsArray(generatorName)
 
     data = moduleNames(data)
@@ -31,30 +31,48 @@ module.exports = function(plop) {
     // These are the handlers for each of the moduleItems we can generate
     const handlers = {
       service: () => {
-        log.white.b('Adding Service...')
-        actions.addFile('service.hbs', targetPath, `${data.moduleFileName}.service.ts`)
+        log.white.b(`Adding ${data.moduleFileNamePlural}.service.ts...`)
+        actions.addFile(
+          'service.hbs',
+          targetPath,
+          `${data.moduleFileNamePlural}.service.ts`
+        )
       },
       resolvers: () => {
-        log.white.b('Adding Resolvers...')
-        actions.addFile('resolvers.hbs', targetPath, `${data.moduleFileName}.resolvers.ts`)
+        log.white.b(`Adding ${data.moduleFileNamePlural}.resolvers.ts...`)
+        actions.addFile(
+          'resolvers.hbs',
+          targetPath,
+          `${data.moduleFileNamePlural}.resolvers.ts`
+        )
       },
       module: () => {
         log.white.b(`Generating Angular Module`)
-        actions.addFile('module.hbs', targetPath, `${data.moduleFileName}.module.ts`)
+        actions.addFile(
+          'module.hbs',
+          targetPath,
+          `${data.moduleFileNamePlural}.module.ts`
+        )
       },
       routes: () => {
-        log.white.b('Adding Routes...')
-        actions.addFile('routes.hbs', targetPath, `${data.moduleFileName}.routes.ts`)
+        log.white.b(`Adding ${data.moduleFileNamePlural}.routes.ts...`)
+        actions.addFile(
+          'routes.hbs',
+          targetPath,
+          `${data.moduleFileNamePlural}.routes.ts`
+        )
       },
       components: () => {
         const components = ['form', 'header', 'tabs']
 
         components.forEach(component => {
-          log.white.b(`Adding Component ${component}...`)
+          log.white.b(
+            `Adding components/${data.moduleFileName}-${component}.component.ts...`
+          )
           actions.addFile(
             `components/${component}.hbs`,
             targetPath,
-            `components/${data.moduleFileName}.${component}.component.ts`
+            `components/${data.moduleFileName}-${component}.component.ts`
           )
         })
       },
@@ -62,11 +80,13 @@ module.exports = function(plop) {
         const containers = ['detail', 'list']
 
         containers.forEach(container => {
-          log.white.b(`Adding Container ${container}...`)
+          log.white.b(
+            `Adding containers/${data.moduleFileName}-${container}.component.ts...`
+          )
           actions.addFile(
             `containers/${container}.hbs`,
             targetPath,
-            `containers/${data.moduleFileName}.${container}.component.ts`
+            `containers/${data.moduleFileName}-${container}.component.ts`
           )
         })
       },

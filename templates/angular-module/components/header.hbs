@@ -7,11 +7,11 @@ import { Component, Input } from '@angular/core'
       <span *ngIf="item; else message">
         {{item.name}} <small>{{item.id}}</small>
       </span>
-      <ng-template #message>Add New {{ moduleName }}</ng-template>
+      <ng-template #message>Add New {{ moduleNameProper }}</ng-template>
     </h5>
   `,
 })
-export class {{ moduleName }}HeaderComponent {
+export class {{ moduleNameProper }}HeaderComponent {
 
   @Input() item
 

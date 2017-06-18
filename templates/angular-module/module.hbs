@@ -4,14 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ColmenaUiModule } from '@colmena/admin-ui'
 
-import { {{ moduleName }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
-import { {{ moduleName }}FormComponent } from './components/{{ moduleFileName }}.form.component'
-import { {{ moduleName }}HeaderComponent } from './components/{{ moduleFileName }}.header.component'
-import { {{ moduleName }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
-import { {{ moduleName }}TabsComponent } from './components/{{ moduleFileName }}.tabs.component'
+import { {{ moduleNameProper }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
+import { {{ moduleNameProper }}FormComponent } from './components/{{ moduleFileName }}.form.component'
+import { {{ moduleNameProper }}HeaderComponent } from './components/{{ moduleFileName }}.header.component'
+import { {{ moduleNameProper }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
+import { {{ moduleNameProper }}TabsComponent } from './components/{{ moduleFileName }}.tabs.component'
 
-import { {{ moduleNamePlural }}Service } from './{{ moduleFileName }}.service'
-import { {{ moduleNamePlural }}Resolver } from './{{ moduleFileName }}.resolvers'
+import { {{ moduleNameProperPlural }}Service } from './{{ moduleFileNamePlural }}.service'
+import { {{ moduleNameProperPlural }}Resolver } from './{{ moduleFileNamePlural }}.resolvers'
 
 @NgModule({
   imports: [
@@ -22,15 +22,15 @@ import { {{ moduleNamePlural }}Resolver } from './{{ moduleFileName }}.resolvers
     RouterModule,
   ],
   declarations: [
-    {{ moduleName }}DetailComponent,
-    {{ moduleName }}FormComponent,
-    {{ moduleName }}HeaderComponent,
-    {{ moduleName }}ListComponent,
-    {{ moduleName }}TabsComponent,
+    {{ moduleNameProper }}DetailComponent,
+    {{ moduleNameProper }}FormComponent,
+    {{ moduleNameProper }}HeaderComponent,
+    {{ moduleNameProper }}ListComponent,
+    {{ moduleNameProper }}TabsComponent,
   ],
   providers: [
-    {{ moduleNamePlural }}Service,
-    {{ moduleNamePlural }}Resolver,
+    {{ moduleNameProperPlural }}Service,
+    {{ moduleNameProperPlural }}Resolver,
   ],
 })
-export class {{ moduleNamePlural }}Module { }
+export class {{ moduleNameProperPlural }}Module { }

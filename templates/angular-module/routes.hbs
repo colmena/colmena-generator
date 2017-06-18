@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router'
 
-import { {{ moduleName }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
-import { {{ moduleName }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
-import { {{ moduleName }}FormComponent } from './components/{{ moduleFileName }}.form.component'
+import { {{ moduleNameProper }}ListComponent } from './containers/{{ moduleFileName }}.list.component'
+import { {{ moduleNameProper }}DetailComponent } from './containers/{{ moduleFileName }}.detail.component'
+import { {{ moduleNameProper }}FormComponent } from './components/{{ moduleFileName }}.form.component'
 
-import { {{ moduleNamePlural }}Resolver } from './{{ moduleFileName }}.resolvers'
+import { {{ moduleNameProperPlural }}Resolver } from './{{ moduleFileNamePlural }}.resolvers'
 
-export const {{ moduleNamePlural }}Routes: Routes = [
+export const {{ moduleNameProperPlural }}Routes: Routes = [
   {
-    path: '{{ moduleNameCamel }}s',
-    data: { title: '{{ moduleNamePlural }}' },
+    path: '{{ moduleFileNamePlural }}',
+    data: { title: '{{ moduleNameProperPlural }}' },
     children: [
       {
         path: '',
@@ -18,27 +18,27 @@ export const {{ moduleNamePlural }}Routes: Routes = [
       },
       {
         path: 'list',
-        component: {{ moduleName }}ListComponent,
+        component: {{ moduleNameProper }}ListComponent,
         data: { title: 'List' },
       },
       {
         path: 'create',
-        component: {{ moduleName }}DetailComponent,
+        component: {{ moduleNameProper }}DetailComponent,
         data: { title: 'Create' },
         children: [
           {
             path: '',
-            component: {{ moduleName }}FormComponent,
+            component: {{ moduleNameProper }}FormComponent,
           },
         ],
       },
       {
         path: ':id',
-        component: {{ moduleName }}DetailComponent,
+        component: {{ moduleNameProper }}DetailComponent,
         resolve: {
-          {{ moduleNameCamel }}: {{ moduleNamePlural }}Resolver,
+          {{ moduleNameCamel }}: {{ moduleNameProperPlural }}Resolver,
         },
-        data: { title: '{{ moduleNameCamel }}' },
+        data: { title: '{{ moduleNameProper }}' },
         children: [
           {
             path: '',
@@ -47,7 +47,7 @@ export const {{ moduleNamePlural }}Routes: Routes = [
           },
           {
             path: 'edit',
-            component: {{ moduleName }}FormComponent,
+            component: {{ moduleNameProper }}FormComponent,
             data: { title: 'Edit' },
           },
         ],

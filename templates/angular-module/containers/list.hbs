@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { UiService } from '@colmena/admin-ui'
 
-import { {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}s.service'
+import { {{ moduleNameProperPlural }}Service } from '../{{ moduleFileNamePlural }}.service'
 
 @Component({
   selector: 'app-{{ moduleFileName }}-list',
@@ -10,12 +10,12 @@ import { {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}s.service'
     <ui-data-grid #grid (action)="action($event)" [service]="service"></ui-data-grid>
   `,
 })
-export class {{ moduleName }}ListComponent {
+export class {{ moduleNameProper }}ListComponent {
 
   @ViewChild('grid') private grid
 
   constructor(
-    public service: {{ moduleNamePlural }}Service,
+    public service: {{ moduleNameProperPlural }}Service,
     private uiService: UiService,
     private router: Router,
     private route: ActivatedRoute,

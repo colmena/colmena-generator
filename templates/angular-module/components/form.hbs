@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { UiService } from '@colmena/admin-ui'
 
-import { {{ moduleName }}, {{ moduleNamePlural }}Service } from '../{{ moduleFileName }}.service'
+import { {{ moduleNameProper }}, {{ moduleNameProperPlural }}Service } from '../{{ moduleFileName }}.service'
 
 @Component({
   selector: 'app-{{ moduleFileName }}-form',
@@ -10,19 +10,19 @@ import { {{ moduleName }}, {{ moduleNamePlural }}Service } from '../{{ moduleFil
     <ui-form *ngIf="item" [config]="formConfig" [item]="item" (action)="handleAction($event)"></ui-form>
   `,
 })
-export class {{ moduleName }}FormComponent implements OnInit {
+export class {{ moduleNameProper }}FormComponent implements OnInit {
 
   public formConfig: any = {}
   public item: any
 
   constructor(
-    private service: {{ moduleNamePlural }}Service,
+    private service: {{ moduleNameProperPlural }}Service,
     private uiService: UiService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.item = this.service.selected{{ moduleName }} || new {{ moduleName }}()
+    this.item = this.service.selected{{ moduleNameProper }} || new {{ moduleNameProper }}()
     this.formConfig = this.service.getFormConfig()
   }
 
@@ -32,9 +32,9 @@ export class {{ moduleName }}FormComponent implements OnInit {
         return this.service.upsertItem(
           event.item,
           () => {
-            this.uiService.toastSuccess('Save {{ moduleName }} Success', `<u>${event.item.name}</u> has been saved successfully`)
+            this.uiService.toastSuccess('Save {{ moduleNameProper }} Success', `<u>${event.item.name}</u> has been saved successfully`)
           },
-          err => this.uiService.toastError('Save {{ moduleName }} Fail', err.message)
+          err => this.uiService.toastError('Save {{ moduleNameProper }} Fail', err.message)
         ).add(() => this.router.navigate(['/system/{{ moduleFileName }}']))
       case 'cancel':
         return this.router.navigate(['/system/{{ moduleFileName }}'])
