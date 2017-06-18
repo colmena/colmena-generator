@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
-import { {{ moduleName }}, {{ moduleName }}Api } from '@colmena/admin-lb-sdk'
-export { {{ moduleName }} } from '@colmena/admin-lb-sdk'
+import { {{ moduleNameProper }}, {{ moduleNameProper }}Api } from '@colmena/admin-lb-sdk'
+export { {{ moduleNameProper }} } from '@colmena/admin-lb-sdk'
 import { UiDataGridService, FormService } from '@colmena/admin-ui'
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 
 @Injectable()
-export class {{ moduleNamePlural }}Service extends UiDataGridService {
+export class {{ moduleNameProperPlural }}Service extends UiDataGridService {
 
   public icon = 'icon-globe'
-  public title = '{{ moduleNamePlural }}'
-  public selected{{ moduleName }}: {{ moduleName }}
+  public title = '{{ moduleNameProperPlural }}'
+  public selected{{ moduleNameProper }}: {{ moduleName }}
 
   public tableColumns = [
     { field: 'id', label: 'ID', action: 'view' },
@@ -25,8 +25,8 @@ export class {{ moduleNamePlural }}Service extends UiDataGridService {
     this.columns = this.tableColumns
   }
 
-  setSelected{{ moduleName }}({{ moduleNameCamel }}: {{ moduleName }}) {
-    this.selected{{ moduleName }} = {{ moduleNameCamel }}
+  setSelected{{ moduleNameProper }}({{ moduleNameCamel }}: {{ moduleNameProper }}) {
+    this.selected{{ moduleNameProper }} = {{ moduleNameCamel }}
   }
 
   getFormFields() {
@@ -59,11 +59,11 @@ export class {{ moduleNamePlural }}Service extends UiDataGridService {
     }
   }
 
-  getItems(): Observable<{{ moduleName }}[]> {
+  getItems(): Observable<{{ moduleNameProper }}[]> {
     return this.{{ moduleNameCamel }}Api.find(this.getFilters())
   }
 
-  getItem(id): Observable<{{ moduleName }}> {
+  getItem(id): Observable<{{ moduleNameProper }}> {
     return this.{{ moduleNameCamel }}Api.findById(id)
   }
 
@@ -73,16 +73,16 @@ export class {{ moduleNamePlural }}Service extends UiDataGridService {
 
   upsertItem(item, successCb, errorCb): Subscription {
     if (item.id) {
-      return this.upsert{{ moduleName }}(item, successCb, errorCb)
+      return this.upsert{{ moduleNameProper }}(item, successCb, errorCb)
     }
-    return this.create{{ moduleName }}(item, successCb, errorCb)
+    return this.create{{ moduleNameProper }}(item, successCb, errorCb)
   }
 
-  upsert{{ moduleName }}(item, successCb, errorCb): Subscription {
+  upsert{{ moduleNameProper }}(item, successCb, errorCb): Subscription {
     return this.{{ moduleNameCamel }}Api.upsert(item).subscribe(successCb, errorCb)
   }
 
-  create{{ moduleName }}(item, successCb, errorCb): Subscription {
+  create{{ moduleNameProper }}(item, successCb, errorCb): Subscription {
     return this.{{ moduleNameCamel }}Api.create(item).subscribe(successCb, errorCb)
   }
 
